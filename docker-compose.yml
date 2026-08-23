@@ -1,0 +1,55 @@
+services:
+  app:
+    build:
+      context: ./docker/php
+    container_name: kakeibo-app
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - db
+    environment:
+      - PHP_IDE_CONFIG=serverName=kakeibo
+
+  web:
+    image: nginx:stable-alpine
+    container_name: kakeibo-web
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: kakeibo-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: kakeibo
+      MYSQL_USER: kakeibo
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: kakeibo-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  dbdata:
