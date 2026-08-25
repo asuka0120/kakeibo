@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -100,7 +101,7 @@ class CategoryTest extends TestCase
     {
         $user = User::factory()->create();
         $category = Category::factory()->for($user)->expense()->create();
-        \App\Models\Transaction::factory()->for($user)->for($category)->expense()->create();
+        Transaction::factory()->for($user)->for($category)->expense()->create();
 
         $response = $this->actingAs($user)->delete(route('categories.destroy', $category));
 

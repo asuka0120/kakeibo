@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
         $totals = $user->transactions()
             ->inMonth($year, $month)
-            ->selectRaw("type, COALESCE(SUM(amount), 0) as total")
+            ->selectRaw('type, COALESCE(SUM(amount), 0) as total')
             ->groupBy('type')
             ->pluck('total', 'type');
 

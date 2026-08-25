@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
 use App\Models\Transaction;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -61,7 +62,7 @@ class StoreTransactionRequest extends FormRequest
                 return;
             }
 
-            $category = \App\Models\Category::find($this->input('category_id'));
+            $category = Category::find($this->input('category_id'));
 
             if ($category && $category->type !== $this->input('type')) {
                 $validator->errors()->add('category_id', '選択したカテゴリの種別と一致しません。');

@@ -12,6 +12,7 @@ class Transaction extends Model
     use HasFactory;
 
     public const TYPE_INCOME = 'income';
+
     public const TYPE_EXPENSE = 'expense';
 
     /**
