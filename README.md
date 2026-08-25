@@ -1,59 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 家計簿 (Kakeibo)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+個人用の家計簿Webアプリケーションです。収入・支出をカテゴリ別に記録し、月ごとの収支を集計・確認できます。
+学習・ポートフォリオ目的で、Laravel 12 + Docker環境を用いてゼロから設計・実装しました。
 
-## About Laravel
+## 主な機能
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **収支記録**：日付・金額・種別（収入/支出）・カテゴリ・メモを登録し、一覧から編集・削除ができる
+- **カテゴリ管理**：収入用・支出用のカテゴリを追加・編集・削除できる（例：食費、交通費、給与など）
+- **一覧・絞り込み**：収支履歴を新しい日付順に一覧表示し、日付・カテゴリ・種別で絞り込みができる
+- **月別集計**：選択した月の収入合計・支出合計・収支（差引）を表示し、月を切り替えて過去の集計も確認できる
+- **認証機能**：Laravel Breezeによるログイン・ユーザー登録
+- **データ分離**：Eloquentのグローバルスコープにより、他ユーザーのデータは一切参照・操作できない
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 技術構成
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| カテゴリ | 使用技術 |
+|---|---|
+| バックエンド | PHP 8.2 / Laravel 12 |
+| データベース | MySQL 8.0 |
+| フロントエンド | Blade / Tailwind CSS / Alpine.js |
+| 認証 | Laravel Breeze |
+| 開発環境 | Docker / Docker Compose |
+| コード整形 | Laravel Pint |
+| テスト | PHPUnit |
 
-## Learning Laravel
+## データベース構成
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+| テーブル | 役割 |
+|---|---|
+| `users` | ログインするユーザー |
+| `categories` | ユーザーごとの収支カテゴリ（収入用/支出用を`type`で区別） |
+| `transactions` | 収支記録（日付・金額・種別・カテゴリ・メモ） |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**リレーション**：`User` 1 - N `Category` 1 - N `Transaction`（`Transaction`は`User`にも直接紐づく）
 
-## Laravel Sponsors
+## セットアップ手順（Docker）
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 前提
 
-### Premium Partners
+- Docker Desktop がインストール済みであること
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 手順
 
-## Contributing
+```bash
+# 1. リポジトリをクローン
+git clone https://github.com/asuka0120/kakeibo.git
+cd kakeibo
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 2. 環境変数ファイルを作成
+cp .env.example .env
 
-## Code of Conduct
+# 3. コンテナを起動
+docker compose up -d
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 4. 依存パッケージをインストール
+docker compose exec app composer install
+docker compose exec app npm install
 
-## Security Vulnerabilities
+# 5. アプリケーションキーを生成
+docker compose exec app php artisan key:generate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 6. マイグレーションを実行（テーブル作成）
+docker compose exec app php artisan migrate
 
-## License
+# 7. フロントエンド資材をビルド
+docker compose exec app npm run build
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+起動後、以下のURLにアクセスできます。
+
+- アプリ本体: http://localhost:8000
+- phpMyAdmin（DB確認用）: http://localhost:8080
+
+## テストの実行方法
+
+```bash
+# PHPUnitによる自動テスト
+docker compose exec app php artisan test
+
+# Laravel Pintによるコードスタイルチェック（差分確認のみ）
+docker compose exec app ./vendor/bin/pint --test
+
+# Laravel Pintによるコードスタイル自動整形
+docker compose exec app ./vendor/bin/pint
+```
+
+## スクリーンショット
+
+<!-- TODO: スクリーンショットを追加する -->
+<!-- 例）ダッシュボード（月別集計） -->
+<!-- 例）収支記録一覧 -->
+<!-- 例）カテゴリ管理画面 -->
+
+## ディレクトリ構成（主要部分のみ）
+
+```
+app/
+  Http/
+    Controllers/   … CategoryController, TransactionController, DashboardController など
+    Requests/      … 入力バリデーション（Store/Update系 FormRequest）
+  Models/          … Category, Transaction, User
+  Policies/        … カテゴリ・収支記録の操作権限（自分のデータのみ許可）
+  Listeners/       … ユーザー登録時の初期カテゴリ自動作成
+database/
+  migrations/      … categories, transactions テーブル定義
+resources/views/
+  categories/      … カテゴリ管理画面
+  transactions/    … 収支記録画面
+  dashboard.blade.php … 月別集計画面
+docker/            … PHP/nginx/MySQLのDocker設定
+```
+
+## ライセンス
+
+本プロジェクトは学習・ポートフォリオ目的で作成したものです。商用利用は想定していません。
