@@ -41,9 +41,11 @@ class Category extends Model
     }
 
     /**
-     * Scope every query to the currently authenticated user so other
-     * users' categories are never visible, including via route
-     * model binding.
+     * カテゴリの取得は必ずログイン中のユーザーのものだけに絞り込む。
+     *
+     * URLのIDを他人のものに書き換えられても、Policyの「権限がない」
+     * エラーではなく「そもそも存在しない」扱いにすることで、
+     * 他人のデータが存在すること自体を悪意ある第三者に知られないようにする。
      */
     protected static function booted(): void
     {
