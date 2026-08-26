@@ -56,9 +56,9 @@ class Transaction extends Model
     }
 
     /**
-     * Scope every query to the currently authenticated user so other
-     * users' transactions are never visible, including via route
-     * model binding.
+     * 収支記録の取得は必ずログイン中のユーザーのものだけに絞り込む。
+     * URLのIDを書き換えられても、他人の記録にアクセスできないようにするため。
+     * 収入・支出の金額が漏れると、なりすまし詐欺などに悪用される可能性があるため、特に慎重に扱う必要がある。
      */
     protected static function booted(): void
     {
