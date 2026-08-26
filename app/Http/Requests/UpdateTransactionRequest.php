@@ -52,7 +52,8 @@ class UpdateTransactionRequest extends FormRequest
     }
 
     /**
-     * Ensure the selected category's type matches the transaction type.
+     * 編集時にも、選択したカテゴリの種別（収入用/支出用）と、収支記録自体の種別（収入/支出）が一致するか確認する。
+     * 新規登録時は正しくても、編集でどちらか一方だけを変更してしまうと不整合になり、収入・支出の集計が実際の家計とズレてしまうため。
      */
     public function withValidator(Validator $validator): void
     {
