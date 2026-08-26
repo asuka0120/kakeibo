@@ -53,7 +53,8 @@ class StoreTransactionRequest extends FormRequest
     }
 
     /**
-     * Ensure the selected category's type matches the transaction type.
+     * 選択したカテゴリの種別（収入用/支出用）と、収支記録自体の種別（収入/支出）が一致するか確認する。
+     * これが一致しないまま登録されると、収入・支出の集計が実際の家計とズレてしまうため。
      */
     public function withValidator(Validator $validator): void
     {
