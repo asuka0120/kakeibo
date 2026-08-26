@@ -17,7 +17,10 @@ class DashboardController extends Controller
         $year = (int) $request->integer('year', now()->year);
         $month = (int) $request->integer('month', now()->month);
 
-        // Normalize an out-of-range month/year (e.g. from prev/next navigation).
+        /**
+         * 前月・翌月ボタンで「1月の前月」や「12月の翌月」を選んだ場合、月が「0月」や「13月」のような存在しない値になってしまう。
+         * そのままだと間違った月のデータが表示される可能性があるため、正しい年月（前年12月・翌年1月）に直してから使う。
+         */
         $current = Carbon::create($year, $month, 1);
         $year = $current->year;
         $month = $current->month;
