@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class PasswordResetLinkController extends Controller
 {
     /**
-     * Display the password reset link request view.
+     * パスワード再設定リンクのリクエスト画面を表示する。
      */
     public function create(): View
     {
@@ -20,7 +20,7 @@ class PasswordResetLinkController extends Controller
     }
 
     /**
-     * Handle an incoming password reset link request.
+     * パスワード再設定リンクのリクエストを処理する。
      *
      * @throws ValidationException
      */

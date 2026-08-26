@@ -8,7 +8,7 @@ use Illuminate\Auth\Events\Registered;
 class CreateDefaultCategories
 {
     /**
-     * Default categories created for every newly registered user.
+     * 新規登録ユーザーごとに作成されるデフォルトカテゴリ。
      *
      * @var array<string, list<string>>
      */
@@ -18,7 +18,7 @@ class CreateDefaultCategories
     ];
 
     /**
-     * Handle the event.
+     * イベントを処理する。
      */
     public function handle(Registered $event): void
     {

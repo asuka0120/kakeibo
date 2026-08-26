@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * リソースの一覧を表示する。
      */
     public function index(Request $request): View
     {
@@ -39,7 +39,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 新規作成用のフォームを表示する。
      */
     public function create(Request $request): View
     {
@@ -49,7 +49,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 新しく作成したリソースを保存する。
      */
     public function store(StoreTransactionRequest $request): RedirectResponse
     {
@@ -61,7 +61,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 指定されたリソースの編集フォームを表示する。
      */
     public function edit(Transaction $transaction): View
     {
@@ -74,7 +74,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 指定されたリソースを更新する。
      */
     public function update(UpdateTransactionRequest $request, Transaction $transaction): RedirectResponse
     {
@@ -86,7 +86,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 指定されたリソースを削除する。
      */
     public function destroy(Transaction $transaction): RedirectResponse
     {

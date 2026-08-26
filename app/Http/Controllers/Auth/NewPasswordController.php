@@ -17,7 +17,7 @@ use Illuminate\View\View;
 class NewPasswordController extends Controller
 {
     /**
-     * Display the password reset view.
+     * パスワード再設定画面を表示する。
      */
     public function create(Request $request): View
     {
@@ -25,7 +25,7 @@ class NewPasswordController extends Controller
     }
 
     /**
-     * Handle an incoming new password request.
+     * 新しいパスワード設定リクエストを処理する。
      *
      * @throws ValidationException
      */

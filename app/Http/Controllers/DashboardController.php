@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 class DashboardController extends Controller
 {
     /**
-     * Show the monthly income / expense summary.
+     * 月ごとの収支サマリーを表示する。
      */
     public function __invoke(Request $request): View
     {

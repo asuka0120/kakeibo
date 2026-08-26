@@ -8,7 +8,7 @@ use Illuminate\View\View;
 class AppLayout extends Component
 {
     /**
-     * Get the view / contents that represents the component.
+     * コンポーネントを表すビュー（表示内容）を取得する。
      */
     public function render(): View
     {

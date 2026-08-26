@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * リソースの一覧を表示する。
      */
     public function index(): View
     {
@@ -29,7 +29,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 新規作成用のフォームを表示する。
      */
     public function create(): View
     {
@@ -37,7 +37,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 新しく作成したリソースを保存する。
      */
     public function store(StoreCategoryRequest $request): RedirectResponse
     {
@@ -49,7 +49,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 指定されたリソースの編集フォームを表示する。
      */
     public function edit(Category $category): View
     {
@@ -61,7 +61,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 指定されたリソースを更新する。
      */
     public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
     {
@@ -73,7 +73,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 指定されたリソースを削除する。
      */
     public function destroy(Category $category): RedirectResponse
     {

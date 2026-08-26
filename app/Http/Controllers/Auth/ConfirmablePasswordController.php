@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class ConfirmablePasswordController extends Controller
 {
     /**
-     * Show the confirm password view.
+     * パスワード確認画面を表示する。
      */
     public function show(): View
     {
@@ -20,7 +20,7 @@ class ConfirmablePasswordController extends Controller
     }
 
     /**
-     * Confirm the user's password.
+     * ユーザーのパスワードを確認する。
      */
     public function store(Request $request): RedirectResponse
     {

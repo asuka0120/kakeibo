@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateCategoryRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * ユーザーがこのリクエストを行う権限を持っているかどうかを判定する。
      */
     public function authorize(): bool
     {
@@ -16,7 +16,7 @@ class UpdateCategoryRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * リクエストに適用するバリデーションルールを取得する。
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */

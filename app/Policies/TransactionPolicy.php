@@ -8,7 +8,7 @@ use App\Models\User;
 class TransactionPolicy
 {
     /**
-     * Determine whether the user can view any models.
+     * ユーザーが一覧を閲覧できるかどうかを判定する。
      */
     public function viewAny(User $user): bool
     {
@@ -16,7 +16,7 @@ class TransactionPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
+     * ユーザーがこのモデルを閲覧できるかどうかを判定する。
      */
     public function view(User $user, Transaction $transaction): bool
     {
@@ -24,7 +24,7 @@ class TransactionPolicy
     }
 
     /**
-     * Determine whether the user can create models.
+     * ユーザーが作成できるかどうかを判定する。
      */
     public function create(User $user): bool
     {
@@ -32,7 +32,7 @@ class TransactionPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * ユーザーがこのモデルを更新できるかどうかを判定する。
      */
     public function update(User $user, Transaction $transaction): bool
     {
@@ -40,7 +40,7 @@ class TransactionPolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * ユーザーがこのモデルを削除できるかどうかを判定する。
      */
     public function delete(User $user, Transaction $transaction): bool
     {
