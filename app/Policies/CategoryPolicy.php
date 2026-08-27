@@ -18,7 +18,9 @@ class CategoryPolicy
     }
 
     /**
-     * ユーザーがこのモデルを閲覧できるかどうかを判定する。
+     * 特定の1件のカテゴリが、ログイン中のユーザー自身のものかを判定する。
+     * Global Scopeで既に絞り込んでいるが、
+     * 万が一その実装にバグがあった場合でも、ここでもう一段階チェックすることで、他人のデータへのアクセスを防ぐ。
      */
     public function view(User $user, Category $category): bool
     {
