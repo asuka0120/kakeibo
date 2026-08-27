@@ -8,7 +8,9 @@ use App\Models\User;
 class CategoryPolicy
 {
     /**
-     * ユーザーが一覧を閲覧できるかどうかを判定する。
+     * ユーザーが一覧画面を開けるかどうかを判定する。
+     * 誰でも一覧画面自体は開けるようにしているが、
+     * 実際に表示されるデータは、モデル側のGlobal Scopeで自分のものだけに絞られているため、他人のデータが見える心配はない。
      */
     public function viewAny(User $user): bool
     {
