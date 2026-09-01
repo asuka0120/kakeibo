@@ -8,7 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateCategoryRequest extends FormRequest
 {
     /**
-     * ユーザーがこのリクエストを行う権限を持っているかどうかを判定する。
+     * カテゴリの更新権限を判定する。
+     * 詳しい理由は CategoryPolicy::update() のコメントを参照。
      */
     public function authorize(): bool
     {
