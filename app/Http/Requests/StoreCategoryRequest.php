@@ -9,7 +9,8 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreCategoryRequest extends FormRequest
 {
     /**
-     * ユーザーがこのリクエストを行う権限を持っているかどうかを判定する。
+     * カテゴリの新規作成権限を判定する。
+     * 詳しい理由は CategoryPolicy::create() のコメントを参照。
      */
     public function authorize(): bool
     {
