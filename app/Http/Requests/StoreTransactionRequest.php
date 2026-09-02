@@ -12,7 +12,8 @@ use Illuminate\Validation\Validator;
 class StoreTransactionRequest extends FormRequest
 {
     /**
-     * ユーザーがこのリクエストを行う権限を持っているかどうかを判定する。
+     * 収支記録の新規作成権限を判定する。
+     * 詳しい理由は TransactionPolicy::create() のコメントを参照。
      */
     public function authorize(): bool
     {
