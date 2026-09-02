@@ -11,7 +11,8 @@ use Illuminate\Validation\Validator;
 class UpdateTransactionRequest extends FormRequest
 {
     /**
-     * ユーザーがこのリクエストを行う権限を持っているかどうかを判定する。
+     * 収支記録の更新権限を判定する。
+     * 詳しい理由は TransactionPolicy::update() のコメントを参照。
      */
     public function authorize(): bool
     {
